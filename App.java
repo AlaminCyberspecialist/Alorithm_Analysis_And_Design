@@ -1,62 +1,18 @@
-
-import java.util.*;
-import java.util.PriorityQueue;
-
 public class App {
-
-    public static void printCode(HuffmanNode root,String s)
-    {
-        if(root.left==null && root.right==null && Character.isLetter(root.c) ){
-            System.out.println(root.c+" "+s);
-            return;
-        }
-        printCode(root.left, s+"0");
-        printCode(root.right,s+"1");
-    }
     public static void main(String[] args) {
-       
-        int n =6;
-        char[] charArray = {'a','b','c','d','e','f'};
+        int graph[][] = {
+            { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
+            { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
+            { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
+            { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
+            { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
+            { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
+            { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
+            { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
+            { 0, 0, 2, 0, 0, 0, 6, 7, 0 }
+        };
 
-        int[] charfreq={5,9,12,13,16,45};
-
-        PriorityQueue<HuffmanNode>q = new PriorityQueue<HuffmanNode>(n,new HuffComparator());
-
-        for(int i=0;i<n;i++)
-        {
-            HuffmanNode hn = new HuffmanNode();
-            hn.c = charArray[i];
-            hn.data = charfreq[i];
-
-            hn.left =null;
-            hn.right=null;
-
-            q.add(hn);
-        }
-       
-        HuffmanNode root =new HuffmanNode();
-
-        while(q.size() > 1){
-            HuffmanNode x = q.peek();
-            q.poll();
-            HuffmanNode y = q.peek();
-            q.poll();
-
-
-        
-        HuffmanNode f =new HuffmanNode();
-
-        f.data =x.data + y.data;
-
-        f.c = '-';
-        f.left=x;
-        f.right =y;
-        root=f;
-        q.add(f);
-
-
-        }printCode(root," ");
+        ShortestPath sp = new ShortestPath();
+        sp.dijkstra(graph, 0); // Start from vertex 0
     }
-
-   
 }
